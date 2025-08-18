@@ -27,4 +27,17 @@ const PATCH = async (
   return Response.json(comments[commentIndex]);
 };
 
-export { GET, PATCH };
+const DELETE = async (
+  request: Request,
+  { params }: { params: { id: string } }
+) => {
+  const commentId = comments.findIndex(
+    (comment) => comment.id === parseInt(params.id)
+  );
+  const deletedComment = comments[commentId];
+  comments.splice(commentId, 1);
+
+  return Response.json(deletedComment);
+};
+
+export { GET, PATCH, DELETE };
