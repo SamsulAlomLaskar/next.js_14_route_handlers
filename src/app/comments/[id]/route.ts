@@ -1,3 +1,4 @@
+import { param } from "express-validator";
 import { comments } from "../data";
 
 const GET = async (
@@ -10,4 +11,20 @@ const GET = async (
   return Response.json(commentId);
 };
 
-export { GET };
+const PATCH = async (
+  request: Request,
+  { params }: { params: { id: string } }
+) => {
+  const body = await request.json();
+  const { text } = body;
+
+  const commentIndex = comments.findIndex(
+    (comment) => comment.id === parseInt(params.id)
+  );
+
+  comments[commentIndex].text = text;
+
+  return Response.json(comments[commentIndex]);
+};
+
+export { GET, PATCH };
