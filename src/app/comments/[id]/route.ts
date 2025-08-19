@@ -1,4 +1,3 @@
-import { param } from "express-validator";
 import { comments } from "../data";
 
 const GET = async (
